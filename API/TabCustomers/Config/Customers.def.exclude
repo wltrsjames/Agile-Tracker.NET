@@ -1,0 +1,109 @@
+Customers
+ 9 
+CustomerId
+bigint
+ 0 
+True
+True
+False
+
+CustomerName
+nvarchar
+ 50 
+False
+False
+False
+
+CompanyName
+nvarchar
+ 50 
+False
+False
+False
+
+CompanyAddress
+nvarchar
+ 128 
+False
+False
+False
+
+CompanyPostcode
+nvarchar
+ 10 
+False
+False
+False
+
+CompanyPhone
+nvarchar
+ 15 
+False
+False
+False
+
+Mobile
+nvarchar
+ 15 
+False
+False
+False
+
+Email
+nvarchar
+ 128 
+False
+False
+False
+
+DateCreated
+datetime
+ 0 
+False
+False
+False
+GetDate()
+APIDB
+ 3 
+GetAll
+False
+SELECT * FROM Customers
+False
+False
+ 0 
+ 1 
+*
+ 0 
+ 0 
+GetCustomerById
+False
+SELECT * FROM Customers WHERE CustomerId=CustomerId
+False
+False
+ 0 
+ 1 
+*
+ 0 
+ 1 
+CustomerId
+=
+ 2 
+CustomerId
+
+GetCustomersPrimaryKeySearch
+False
+SELECT * FROM Customers
+False
+False
+ 0 
+ 1 
+*
+ 0 
+ 1 
+CustomerId
+=
+ 2 
+CustomerId
+
+Patchwork
+C:\Projects\Agile_Tracker.net\API\

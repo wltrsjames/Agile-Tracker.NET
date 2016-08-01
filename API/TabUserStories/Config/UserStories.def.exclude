@@ -1,0 +1,110 @@
+UserStories
+ 7 
+UserStoryId
+bigint
+ 0 
+True
+True
+False
+
+ProjectId
+bigint
+ 0 
+False
+False
+False
+
+UserRole
+nvarchar
+ 30 
+False
+False
+False
+
+Request
+nvarchar
+ 255 
+False
+False
+False
+
+Purpose
+nvarchar
+ 255 
+False
+False
+False
+
+AcceptanceCriteria
+nvarchar
+ 255 
+False
+False
+False
+
+MVP
+yes/no
+ 0 
+False
+False
+False
+
+APIDB
+ 4 
+GetUserStoryByProjectId
+False
+SELECT * FROM UserStories WHERE ProjectId=ProjectId
+False
+False
+ 0 
+ 1 
+*
+ 0 
+ 1 
+ProjectId
+=
+ 2 
+ProjectId
+
+GetUserStoriesPrimaryKeySearch
+False
+SELECT * FROM UserStories
+False
+False
+ 0 
+ 1 
+*
+ 0 
+ 1 
+UserStoryId
+=
+ 2 
+UserStoryId
+
+GetAll
+False
+SELECT * FROM UserStories
+False
+False
+ 0 
+ 1 
+*
+ 0 
+ 0 
+GetUserStoryById
+False
+SELECT * FROM UserStories WHERE UserStoryId=UserStoryId
+False
+False
+ 0 
+ 1 
+*
+ 0 
+ 1 
+UserStoryId
+=
+ 2 
+UserStoryId
+
+Patchwork
+C:\Projects\Agile_Tracker.net\API\

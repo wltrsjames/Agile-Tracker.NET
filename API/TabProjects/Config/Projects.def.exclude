@@ -1,0 +1,95 @@
+Projects
+ 7 
+ProjectId
+bigint
+ 0 
+True
+True
+False
+
+ProjectName
+nvarchar
+ 50 
+False
+False
+False
+
+Definition
+nvarchar
+ 255 
+False
+False
+False
+
+Outline
+nvarchar
+ 1000 
+False
+False
+False
+
+CustomerId
+bigint
+ 0 
+False
+False
+False
+
+ProjectOwnerId
+bigint
+ 0 
+False
+False
+False
+
+CreatedDate
+datetime
+ 0 
+False
+False
+False
+GetDate()
+APIDB
+ 3 
+GetAllProjects
+False
+SELECT * FROM Projects
+False
+False
+ 0 
+ 1 
+*
+ 0 
+ 0 
+GetProjectById
+False
+SELECT * FROM Projects WHERE ProjectId=ProjectId
+False
+False
+ 0 
+ 1 
+*
+ 0 
+ 1 
+ProjectId
+=
+ 2 
+ProjectId
+
+GetProjectsPrimaryKeySearch
+False
+SELECT * FROM Projects
+False
+False
+ 0 
+ 1 
+*
+ 0 
+ 1 
+ProjectId
+=
+ 2 
+ProjectId
+
+Patchwork
+C:\Projects\Agile_Tracker.net\API\

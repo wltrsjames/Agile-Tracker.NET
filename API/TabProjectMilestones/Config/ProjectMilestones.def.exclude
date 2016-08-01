@@ -1,0 +1,117 @@
+ProjectMilestones
+ 8 
+ProjectMilestoneId
+bigint
+ 0 
+True
+True
+False
+
+ProjectId
+bigint
+ 0 
+False
+False
+False
+
+MilestoneDescription
+nvarchar
+ 1000 
+False
+False
+False
+
+EstimatedHours
+float
+ 0 
+False
+False
+False
+
+EstimatedCost
+money
+ 0 
+False
+False
+False
+
+Status
+int
+ 0 
+False
+False
+False
+
+HoursSpent
+float
+ 0 
+False
+False
+False
+
+DateCreated
+datetime
+ 0 
+False
+False
+False
+GetDate()
+APIDB
+ 4 
+GetMilestonesByProject
+False
+SELECT * FROM ProjectMilestones WHERE ProjectId=ProjectId
+False
+False
+ 0 
+ 1 
+*
+ 0 
+ 1 
+ProjectId
+=
+ 2 
+ProjectId
+
+GetProjectMilestonesPrimaryKeySearch
+False
+SELECT * FROM ProjectMilestones
+False
+False
+ 0 
+ 1 
+*
+ 0 
+ 1 
+ProjectMilestoneId
+=
+ 2 
+ProjectMilestoneId
+
+GetAll
+False
+SELECT * FROM ProjectMilestones
+False
+False
+ 0 
+ 1 
+*
+ 0 
+ 0 
+GetMilestoneById
+False
+SELECT * FROM ProjectMilestones WHERE ProjectMilestoneId=ProjectMilestoneId
+False
+False
+ 0 
+ 1 
+*
+ 0 
+ 1 
+ProjectMilestoneId
+=
+ 2 
+ProjectMilestoneId
+
+Patchwork
+C:\Projects\Agile_Tracker.net\API\

@@ -1,0 +1,115 @@
+Users
+ 7 
+pkUserId
+bigint
+ 0 
+True
+True
+False
+
+Firstname
+nvarchar
+ 50 
+False
+False
+False
+
+Lastname
+nvarchar
+ 50 
+False
+False
+False
+
+Email
+nvarchar
+ 128 
+False
+False
+False
+
+Password
+nvarchar
+ 30 
+False
+False
+False
+
+Userlevel
+int
+ 0 
+False
+False
+False
+
+CreationDate
+datetime
+ 0 
+False
+False
+False
+GetDate()
+APIDB
+ 4 
+GetUserByUserId
+False
+SELECT * FROM Users WHERE pkUserId=pkUserId
+False
+False
+ 0 
+ 1 
+*
+ 0 
+ 1 
+pkUserId
+=
+ 2 
+pkUserId
+
+GetUserByEmail
+False
+SELECT * FROM Users WHERE Email=Email AND Password=Password
+False
+False
+ 0 
+ 1 
+*
+ 0 
+ 2 
+Email
+=
+ 2 
+Email
+
+Password
+=
+ 2 
+Password
+
+GetUsersPrimaryKeySearch
+False
+SELECT * FROM Users
+False
+False
+ 0 
+ 1 
+*
+ 0 
+ 1 
+pkUserId
+=
+ 2 
+pkUserId
+
+GetAllUsers
+False
+SELECT * FROM Users
+False
+False
+ 0 
+ 1 
+*
+ 0 
+ 0 
+Patchwork
+C:\Projects\Agile_Tracker.net\API\

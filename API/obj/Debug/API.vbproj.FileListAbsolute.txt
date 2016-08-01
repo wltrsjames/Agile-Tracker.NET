@@ -1,0 +1,8 @@
+C:\Projects\Agile_Tracker.net\API\bin\Debug\JWLTD.API.dll
+C:\Projects\Agile_Tracker.net\API\bin\Debug\JWLTD.API.pdb
+C:\Projects\Agile_Tracker.net\API\bin\Debug\JWLTD.API.xml
+C:\Projects\Agile_Tracker.net\API\obj\Debug\JWLTD.API.Resources.resources
+C:\Projects\Agile_Tracker.net\API\obj\Debug\API.vbproj.GenerateResource.Cache
+C:\Projects\Agile_Tracker.net\API\obj\Debug\JWLTD.API.dll
+C:\Projects\Agile_Tracker.net\API\obj\Debug\JWLTD.API.xml
+C:\Projects\Agile_Tracker.net\API\obj\Debug\JWLTD.API.pdb

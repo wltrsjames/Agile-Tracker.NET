@@ -1,0 +1,274 @@
+'---------------------------------------------------------------------------------
+' Filename:      DataAccessLayer.vb
+' Creation Date: 2016-07-16
+'---------------------------------------------------------------------------------
+' History        Author              Modification(s)               
+'
+'---------------------------------------------------------------------------------
+
+Imports System.Data
+Imports System.Data.SqlClient
+Imports System.Web.Configuration
+Imports System.Web.HttpContext
+Imports System.Attribute
+Imports Microsoft.SqlServer.Types
+
+Namespace DatabaseLayer.TabUserStories
+
+	Public Class DataAccessLayer
+	' All code within the DAL Region is automatically generated.
+	' Any changes to this code will be lost if the Business Object Tool is run again.
+#Region "Private Varibles"
+
+		Private _conString As String = WebConfigurationManager.ConnectionStrings("APIDB").ConnectionString
+		Private con As SqlConnection
+		Private dtr as SqlDataReader
+
+#End Region
+
+#Region "Generated Code"
+
+		Private Function IsBadParameter(ByVal text As String) As Boolean
+			Dim word As String
+			Dim reservedword As String
+			Dim SQLReservedWords As new List(Of String)
+
+			SQLReservedWords.Add("ALTER")
+			SQLReservedWords.Add("UNION")
+			SQLReservedWords.Add("UPDATE")
+			SQLReservedWords.Add("SELECT")
+			SQLReservedWords.Add("EXEC")
+			SQLReservedWords.Add("DROP")
+			SQLReservedWords.Add("INSERT")
+
+			For Each word In text.Split(" ")
+				For Each reservedword In SQLReservedWords
+					If word.ToLower = reservedword.ToLower Then
+						Return True
+					End If
+				Next
+			Next
+
+			Return False
+		End Function
+
+		Private Function CreateConnection() As Boolean
+			Try
+				con = New SqlConnection(_conString)
+			Catch
+				Return False
+				Exit Function
+			End Try
+
+			Return True
+		End Function
+
+		Public Function CloseConnection() As Boolean
+			Try
+				If dtr IsNot Nothing Then
+					dtr.Close
+					dtr = Nothing
+				End If
+
+				' close the connection
+				con.Close()
+
+				' garbage collect
+				GC.Collect()
+			Catch
+				Return False
+			End Try
+
+			Return True
+		End Function
+
+		Public Function CreateTable() As Boolean
+			CreateConnection()
+			Dim createString as String ="CREATE TABLE UserStories (UserStoryId bigint Identity(1,1) not null , ProjectId bigint not null , UserRole nvarchar(30) not null , Request nvarchar(255) not null , Purpose nvarchar(255) not null , AcceptanceCriteria nvarchar(255) not null , MVP int not null , PRIMARY KEY (UserStoryId))"
+			Dim cmd As New SqlCommand(createString, con)
+
+			Try
+				con.Open()
+				cmd.ExecuteNonQuery()
+			Catch ex As Exception
+				' catch exception here
+				Return False
+			Finally
+				CloseConnection()
+			End Try
+
+			Return True
+		End Function
+
+		Public Function InsertUserStories(ByVal ProjectId As Long, ByVal UserRole As String, ByVal Request As String, ByVal Purpose As String, ByVal AcceptanceCriteria As String, ByVal MVP As Integer) As Long
+			CreateConnection()
+			dtr = Nothing
+			Dim createString as String ="INSERT INTO UserStories (ProjectId, UserRole, Request, Purpose, AcceptanceCriteria, MVP) values (@ProjectId, @UserRole, @Request, @Purpose, @AcceptanceCriteria, @MVP)"
+			Dim cmd As New SqlCommand(createString, con)
+			cmd.Parameters.AddWithValue("@ProjectId", ProjectId)
+			cmd.Parameters.AddWithValue("@UserRole", UserRole)
+			cmd.Parameters.AddWithValue("@Request", Request)
+			cmd.Parameters.AddWithValue("@Purpose", Purpose)
+			cmd.Parameters.AddWithValue("@AcceptanceCriteria", AcceptanceCriteria)
+			cmd.Parameters.AddWithValue("@MVP", MVP)
+
+			' Check all string parameters for hidden SQL
+			If IsBadParameter(UserRole) = True Then Return -1
+			If IsBadParameter(Request) = True Then Return -1
+			If IsBadParameter(Purpose) = True Then Return -1
+			If IsBadParameter(AcceptanceCriteria) = True Then Return -1
+
+			Try
+				con.Open()
+				cmd.ExecuteNonQuery()
+
+				Dim findString As String = "SELECT TOP 1 * FROM UserStories WHERE ProjectId=" + ProjectId.ToString + " AND UserRole=" + UserRole.ToString + " AND Request=" + Request.ToString + " AND Purpose=" + Purpose.ToString + " AND AcceptanceCriteria=" + AcceptanceCriteria.ToString + " AND MVP=" + MVP.ToString + "" + " ORDER BY UserStoryId DESC "
+				Dim cmd2 As New SqlCommand(findString, con)
+
+				Try
+					dtr = cmd2.ExecuteReader(CommandBehavior.CloseConnection)
+
+					While dtr.Read
+						Return CType(dtr("UserStoryId"),Long)
+					End While
+				Catch ex As Exception
+					' catch exception here
+				End Try
+
+
+			Catch ex As Exception
+				' catch exception here
+				Return -1
+			Finally
+				CloseConnection()
+			End Try
+
+			Return -1
+		End Function
+
+		Public Function UpdateUserStories(ByVal UserStoryId As Long, ByVal ProjectId As Long, ByVal UserRole As String, ByVal Request As String, ByVal Purpose As String, ByVal AcceptanceCriteria As String, ByVal MVP As Integer) As Boolean
+			CreateConnection()
+			Dim createString as String ="UPDATE UserStories SET ProjectId=@ProjectId, UserRole=@UserRole, Request=@Request, Purpose=@Purpose, AcceptanceCriteria=@AcceptanceCriteria, MVP=@MVP WHERE UserStoryId=@UserStoryId"
+			Dim cmd As New SqlCommand(createString, con)
+
+			cmd.Parameters.AddWithValue("@UserStoryId", UserStoryId)
+			cmd.Parameters.AddWithValue("@ProjectId", ProjectId)
+			cmd.Parameters.AddWithValue("@UserRole", UserRole)
+			cmd.Parameters.AddWithValue("@Request", Request)
+			cmd.Parameters.AddWithValue("@Purpose", Purpose)
+			cmd.Parameters.AddWithValue("@AcceptanceCriteria", AcceptanceCriteria)
+			cmd.Parameters.AddWithValue("@MVP", MVP)
+
+			' Check all string parameters for hidden SQL
+			If IsBadParameter(UserRole) = True Then Return False
+			If IsBadParameter(Request) = True Then Return False
+			If IsBadParameter(Purpose) = True Then Return False
+			If IsBadParameter(AcceptanceCriteria) = True Then Return False
+
+			Try
+				con.Open()
+				cmd.ExecuteNonQuery()
+			Catch ex As Exception
+				' catch exception here
+				Return False
+			Finally
+				CloseConnection()
+			End Try
+
+			Return True
+		End Function
+
+		Public Function DeleteUserStories(ByVal UserStoryId As Long) As Boolean
+			CreateConnection()
+			Dim createString as String ="DELETE UserStories WHERE UserStoryId=@UserStoryId"
+			Dim cmd As New SqlCommand(createString, con)
+			cmd.Parameters.AddWithValue("@UserStoryId", UserStoryId)
+
+			Try
+				con.Open()
+				cmd.ExecuteNonQuery()
+			Catch ex As Exception
+				' catch exception here
+				Return False
+			Finally
+				CloseConnection()
+			End Try
+
+			Return True
+		End Function
+
+		Public Function GetUserStoryByProjectId(ProjectId As Long) As SqlDataReader
+			CreateConnection()
+			Dim createString as String ="SELECT * FROM UserStories WHERE ProjectId=" + ProjectId.ToString + ""
+			Dim cmd As New SqlCommand(createString, con)
+			dtr = Nothing
+
+			Try
+				con.Open()
+				dtr = cmd.ExecuteReader(CommandBehavior.CloseConnection)
+			Catch ex As Exception
+				' catch exception here
+			End Try
+
+			Return dtr
+		End Function
+
+		Public Function GetUserStoriesPrimaryKeySearch(UserStoryId As Long) As SqlDataReader
+			CreateConnection()
+			Dim createString as String ="SELECT * FROM UserStories WHERE UserStoryId=" + UserStoryId.ToString + ""
+			Dim cmd As New SqlCommand(createString, con)
+			dtr = Nothing
+
+			Try
+				con.Open()
+				dtr = cmd.ExecuteReader(CommandBehavior.CloseConnection)
+			Catch ex As Exception
+				' catch exception here
+			End Try
+
+			Return dtr
+		End Function
+
+		Public Function GetAll() As SqlDataReader
+			CreateConnection()
+			Dim createString as String ="SELECT * FROM UserStories"
+			Dim cmd As New SqlCommand(createString, con)
+			dtr = Nothing
+
+			Try
+				con.Open()
+				dtr = cmd.ExecuteReader(CommandBehavior.CloseConnection)
+			Catch ex As Exception
+				' catch exception here
+			End Try
+
+			Return dtr
+		End Function
+
+		Public Function GetUserStoryById(UserStoryId As Long) As SqlDataReader
+			CreateConnection()
+			Dim createString as String ="SELECT * FROM UserStories WHERE UserStoryId=" + UserStoryId.ToString + ""
+			Dim cmd As New SqlCommand(createString, con)
+			dtr = Nothing
+
+			Try
+				con.Open()
+				dtr = cmd.ExecuteReader(CommandBehavior.CloseConnection)
+			Catch ex As Exception
+				' catch exception here
+			End Try
+
+			Return dtr
+		End Function
+
+#End Region
+
+	' All code within the Custom DAL Region will be maintained as is by the Business Objects Automation System
+	' Any code outside of the custom regions will be lost
+#Region "Custom Functions"
+
+#End Region
+
+	End Class
+
+End Namespace

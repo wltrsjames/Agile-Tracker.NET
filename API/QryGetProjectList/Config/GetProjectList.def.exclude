@@ -1,0 +1,35 @@
+GetProjectList
+Projects
+False
+False
+ 0 
+ 2 
+Projects
+CustomerId
+ 1 
+Customers
+CustomerId
+Projects
+ProjectOwnerId
+ 1 
+Users
+pkUserId
+ 8 
+Projects.ProjectId
+Projects.ProjectName
+Projects.Definition
+Projects.Outline
+Customers.CustomerName
+Users.Firstname
+Users.Lastname
+Projects.CreatedDate
+ 0 
+ 0 
+Projects.ProjectId
+ 0 
+
+ 0 
+
+ 0 
+False
+False
